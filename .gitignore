@@ -68,3 +68,5 @@ local.properties
 .buildpath
 /build/
 /target/
+####les logs
+logFile.log
