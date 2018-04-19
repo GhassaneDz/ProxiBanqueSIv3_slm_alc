@@ -29,12 +29,16 @@ public class CompteDaoImp implements CompteDao {
 		}
 		return compte;
 	}
-	
+
+	/*
+	 * Implémentation-dépendant : JPA permet de modifier l'objet adéquat dans la
+	 * base de données, à partir de l'ID contenu dans le nouvel objet, grâce à la
+	 * méthode merge.
+	 */
 	@Override
 	public void modifierCompte(Compte compte) {
 		EntityManager em = JPAUtil.getEntityManager();
 		EntityTransaction txn = em.getTransaction();
-		
 		try {
 			txn.begin();
 			em.merge(compte);
@@ -49,7 +53,6 @@ public class CompteDaoImp implements CompteDao {
 				em.close();
 			}
 		}
-		
 	}
 
 }

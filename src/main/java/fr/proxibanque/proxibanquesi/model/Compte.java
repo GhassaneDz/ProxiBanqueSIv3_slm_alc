@@ -10,29 +10,35 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * Classe abstraite décrivant un compte
+ * Classe abstraite factorisant les caractéristiques des comptes bancaires
+ * ProxiBanque.
  * 
- * @author Sandrine Le Mentec et Anthony Le Cigne
+ * @author Sandrine Le Mentec, Anthony Le Cigne
  *
  */
+
 @Entity
+// Une table par classe, n'incluant que l'état défini dans la classe.
 @Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement
 public abstract class Compte {
 
 	/**
-	 * numero de compte client PK de la table (Id regénérée à la création du compte)
+	 * Numéro de compte constituant la PK de la table
 	 */
 	@Id
 	protected long numeroCompte;
+
 	/**
-	 * solde du compte
+	 * Solde du compte
 	 */
 	protected double solde;
 	/**
-	 * date d'ouverture du compte
+	 * Date d'ouverture du compte
 	 */
 	protected String dateOuverture;
+
+	// *** GETTERS et SETTERS ***
 
 	public long getNumeroCompte() {
 		return numeroCompte;
@@ -57,6 +63,8 @@ public abstract class Compte {
 	public void setDateOuverture(String dateOuverture) {
 		this.dateOuverture = dateOuverture;
 	}
+
+	// *** AUTRES METHODES ***
 
 	@Override
 	public String toString() {

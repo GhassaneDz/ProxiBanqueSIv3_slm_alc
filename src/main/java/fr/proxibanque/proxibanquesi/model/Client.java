@@ -21,6 +21,8 @@ import javax.xml.bind.annotation.XmlType;
 
 @Entity
 @XmlRootElement
+// Permet une correspondance entre le nom des variables d'instance et la
+// configuration de JAXB.
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(propOrder = { "idClient", "nom", "prenom", "adresse", "codePostal", "ville", "telephone", "compteCourant",
 		"compteEpargne" })
@@ -39,12 +41,12 @@ public class Client {
 	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
 	@JoinColumn(name = "compte_courant_id", unique = true)
 	private CompteCourant compteCourant;
-	
+
 	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
 	@JoinColumn(name = "compte_epargne_id", unique = true)
 	private CompteEpargne compteEpargne;
 
-	// *** CONSTRUCTORS ***
+	// *** CONSTRUCTEURS ***
 
 	public Client() {
 	}
@@ -123,7 +125,6 @@ public class Client {
 	public void setCompteCourant(CompteCourant compteCourant) {
 		this.compteCourant = compteCourant;
 	}
-	
 
 	public CompteEpargne getCompteEpargne() {
 		return compteEpargne;
@@ -132,10 +133,8 @@ public class Client {
 	public void setCompteEpargne(CompteEpargne compteEpargne) {
 		this.compteEpargne = compteEpargne;
 	}
-	
 
-	// *** OTHER METHODS ***
-
+	// *** AUTRES METHODES ***
 
 	@Override
 	public String toString() {

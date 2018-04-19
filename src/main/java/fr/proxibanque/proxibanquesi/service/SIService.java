@@ -13,7 +13,7 @@ import fr.proxibanque.proxibanquesi.model.Compte;
 import fr.proxibanque.proxibanquesi.model.CompteCourant;
 
 /**
- * sert au service : virements, etc.
+ * Interface regroupant des opérations plus élaborées sur les clients.
  * 
  * @author Sandrine Le Mentec et Anthony Le Cigne
  *
@@ -21,45 +21,52 @@ import fr.proxibanque.proxibanquesi.model.CompteCourant;
 public interface SIService {
 
 	/**
-	 * @return le compte courant cree
-	 */
-	CompteCourant creerCompteCourant();
-
-	/**
-	 * creer et associe un compte epargne à un compte client
-	 * @param idClient : id du client auquel est attribué le compte épargne
-	 * @return reponse 200
+	 * Crée et associe un compte épargne à un client.
+	 * 
+	 * @param idClient
+	 *            ID du client auquel est attribué le compte épargne
+	 * @return Réponse HTTP
 	 */
 	@POST
 	@Path("/associercompteepargne/{idClient}")
 	Response associerCompteEpargne(@PathParam("idClient") long idClient);
 
 	/**
-	 * réalise un virement compte à compte à partir d'un numéro de compte
-	 * @param numeroCompteSrc : numéro du compte créditeur
-	 * @param numeroCompteDest : numéro du compte crédité
-	 * @param montant : montant à transférer
-	 * @return reponse 200
+	 * Réalise un virement compte à compte à partir d'un numéro de compte.
+	 * 
+	 * @param numeroCompteSrc
+	 *            Numéro du compte créditeur
+	 * @param numeroCompteDest
+	 *            Numéro du compte crédité
+	 * @param montant
+	 *            Montant à transférer
+	 * @return Réponse HTTP
 	 */
 	@POST
 	@Path("/virement/{numSrc}/{numDest}/{montant}")
 	Response faireVirement(@PathParam("numSrc") long numeroCompteSrc, @PathParam("numDest") long numeroCompteDest,
 			@PathParam("montant") double montant);
-	
+
 	/**
-	 * Liste les comptes d'un client
-	 * @param idClient id du client 
-	 * @return : la liste des Comptes du client
+	 * Liste les comptes d'un client.
+	 * 
+	 * @param idClient
+	 *            ID du client
+	 * @return Liste des comptes du client
 	 */
 	@GET
 	@Path("/listercomptes/{idClient}")
 	List<Compte> listerComptesClient(@PathParam("idClient") long idClient);
-	
+
 	/**
-	 * Crediter un compte. permet d'encaisser les chèques ou un apport en liquide par exemple
-	 * @param numerocompte : numéro du compte à créditer
-	 * @param montant : montant à créditer
-	 * @return la réponse de la data base
+	 * Credite un compte. Permet d'encaisser les chèques ou un apport en liquide par
+	 * exemple.
+	 * 
+	 * @param numerocompte
+	 *            Numéro du compte à créditer
+	 * @param montant
+	 *            Montant à créditer
+	 * @return Réponse HTTP
 	 */
 	@PUT
 	@Path("/creditercompte/{numerocompte}/{montant}")

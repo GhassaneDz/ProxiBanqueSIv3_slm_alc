@@ -1,5 +1,6 @@
 <configuration>
 
+	<!-- Configuration de la sortie standard output -->
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder 
 			by default -->
@@ -8,6 +9,7 @@
 		</encoder>
 	</appender>
 
+	<!-- Configuration de la sortie fichier -->
 	<appender name="FILE"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>logFile.log</file>
@@ -15,7 +17,6 @@
 			daily rollover
 			<fileNamePattern>logFile.%d{yyyy-MM-dd}.log</fileNamePattern>
 
-			keep 1 days' worth of history
 			<maxHistory>5</maxHistory>
 		</rollingPolicy>
 

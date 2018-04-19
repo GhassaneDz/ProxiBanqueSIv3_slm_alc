@@ -18,12 +18,13 @@ import javax.servlet.http.HttpSession;
  * Ce filtre intercepte toutes les requêtes HTTP dirigées vers l'application
  * ProxiBanqueSI. Si l'utilisateur n'est pas identifié, aucune page ne peut être
  * affichée, et aucun service ne peut être exploité. Seul la présence d'un
- * utilisateur identifié (en session pour 60 minutes) permet d'accéder à la page
- * d'accueil et aux webservices.
+ * utilisateur identifié en session (pour 60 minutes - cf. Servlet de login)
+ * permet d'accéder à la page d'accueil et aux webservices.
  * 
  * @author Sandrine Le Mentec, Anthony Le Cigne
  *
  */
+
 @WebFilter("/*")
 public class LoginFilter implements Filter {
 
@@ -49,12 +50,9 @@ public class LoginFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
 		HttpSession session = request.getSession(false);
-		// Do not filter requests to the login page or the login servlet!
-		String[] authorizedPages = { request.getContextPath() + "/Login",
-				request.getContextPath() + "/index.html",
-				request.getContextPath() + "/css/style.css",
-				request.getContextPath() + "/img/banner.jpg"
-				};
+		// Ne pas filtrer TOUTES les requêtes...
+		String[] authorizedPages = { request.getContextPath() + "/Login", request.getContextPath() + "/index.html",
+				request.getContextPath() + "/css/style.css", request.getContextPath() + "/img/banner.jpg" };
 
 		boolean loggedIn = session != null && session.getAttribute("userSession") != null;
 		boolean authorizedRequest = Arrays.asList(authorizedPages).contains(request.getRequestURI());

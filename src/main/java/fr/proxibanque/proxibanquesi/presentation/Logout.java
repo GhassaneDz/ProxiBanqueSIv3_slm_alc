@@ -10,6 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Cette Servlet permet la déconnexion d'un conseiller d'une session HTTP
+ * associée à ProxiBanqueSI.
+ * 
+ * @author adminl
+ *
+ */
 @WebServlet("/Logout")
 public class Logout extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -34,8 +41,9 @@ public class Logout extends HttpServlet {
 		if (session != null) {
 			session.invalidate();
 		}
-		
+
 		PrintWriter out = response.getWriter();
+		// TODO Redirection vers page d'information.
 		out.println("Vous êtes déconnecté.");
 	}
 

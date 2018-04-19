@@ -7,19 +7,22 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * Objet compte épargne
+ * Cette classe décrit les caractéristiques d'un compte épargne ProxiBanque.
+ * Chaque client peut disposer d'un compte épargne après ajout explicite par un
+ * conseiller. Aucune carte bancaire n'est associée à un compte épargne.
  * 
  * @author Sandrine Le Mentec, Anthony Le Cigne
  *
  */
+
 @Entity
 @XmlRootElement
 public class CompteEpargne extends Compte {
 
 	/**
-	 * taux de rémunération (négociable de client à client)
+	 * Taux de rémunération (négociable de client à client)
 	 */
-	private double tauxremun;
+	private double tauxRemun;
 
 	public CompteEpargne() {
 
@@ -29,15 +32,15 @@ public class CompteEpargne extends Compte {
 		this.numeroCompte = numeroCompte;
 		this.solde = solde;
 		this.dateOuverture = dateOuverture;
-		this.tauxremun = tauxremun;
+		this.tauxRemun = tauxremun;
 	}
 
 	public double getTauxremun() {
-		return tauxremun;
+		return tauxRemun;
 	}
 
 	public void setTauxremun(double tauxremun) {
-		this.tauxremun = tauxremun;
+		this.tauxRemun = tauxremun;
 	}
 
 }
