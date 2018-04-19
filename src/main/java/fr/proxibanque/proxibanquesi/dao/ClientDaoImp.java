@@ -7,11 +7,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import fr.proxibanque.proxibanquesi.model.Client;
+import fr.proxibanque.proxibanquesi.util.UtilitaireLogger;
 
 public class ClientDaoImp implements ClientDao {
 
 	@Override
 	public void creerClient(Client client) {
+		UtilitaireLogger.LOGGER.info("Sauvegarde d'un client dans la base de donnée");
 		EntityManager em = JPAUtil.getEntityManager();
 		EntityTransaction txn = em.getTransaction();
 
@@ -24,6 +26,7 @@ public class ClientDaoImp implements ClientDao {
 				txn.rollback();
 			}
 			e.printStackTrace();
+			UtilitaireLogger.LOGGER.error("Erreur lors de l'écriture en base d'un nouveau client");
 		} finally {
 			if (em != null) {
 				em.close();
@@ -33,6 +36,7 @@ public class ClientDaoImp implements ClientDao {
 
 	@Override
 	public Client obtenirClient(long idClient) {
+		UtilitaireLogger.LOGGER.info("Appel du client "+idClient+" dans la base de donnée");
 		EntityManager em = JPAUtil.getEntityManager();
 		EntityTransaction txn = em.getTransaction();
 		Client client = null;
@@ -45,6 +49,7 @@ public class ClientDaoImp implements ClientDao {
 				txn.rollback();
 			}
 			e.printStackTrace();
+			UtilitaireLogger.LOGGER.error("Erreur lors la lecture en base du client "+idClient);
 		} finally {
 			if (em != null) {
 				em.close();
@@ -55,9 +60,9 @@ public class ClientDaoImp implements ClientDao {
 
 	@Override
 	public void modifierClient(Client client) {
+		UtilitaireLogger.LOGGER.info("Modification du client "+client.getIdClient()+"dans la base de donnée");
 		EntityManager em = JPAUtil.getEntityManager();
 		EntityTransaction txn = em.getTransaction();
-		
 		try {
 			txn.begin();
 			em.merge(client);
@@ -67,6 +72,7 @@ public class ClientDaoImp implements ClientDao {
 				txn.rollback();
 			}
 			e.printStackTrace();
+			UtilitaireLogger.LOGGER.error("Erreur lors l'écriture en base du client "+client.getIdClient());
 		} finally {
 			if (em != null) {
 				em.close();
@@ -77,6 +83,7 @@ public class ClientDaoImp implements ClientDao {
 	
 	@Override
 	public void supprimerClient(long idClient) {
+		UtilitaireLogger.LOGGER.info("Suppression du client "+idClient+ " dans la base de donnée");
 		EntityManager em = JPAUtil.getEntityManager();
 		EntityTransaction txn = em.getTransaction();
 		try {
@@ -88,6 +95,7 @@ public class ClientDaoImp implements ClientDao {
 				txn.rollback();
 			}
 			e.printStackTrace();
+			UtilitaireLogger.LOGGER.error("Erreur lors la suppression en base du client "+idClient);
 		} finally {
 			if (em != null) {
 				em.close();
@@ -97,7 +105,7 @@ public class ClientDaoImp implements ClientDao {
 
 	@Override
 	public List<Client> obtenirTousLesClients() {
-		// TODO Auto-generated method stub
+		UtilitaireLogger.LOGGER.info("Recuperation de tous les clients dans la Base de données");
 		 EntityManager em = JPAUtil.getEntityManager(); 
 		 EntityTransaction txn = em.getTransaction(); 
 		 List<Client> listeClients = new ArrayList<>(); 
@@ -106,6 +114,14 @@ public class ClientDaoImp implements ClientDao {
 			 listeClients = (ArrayList<Client>) tq.getResultList(); 
 		} catch (Exception e) {
 			if(txn !=null) {
+				em.close();
+				e.printStackTrace();
+				UtilitaireLogger.LOGGER.error("Erreur lors la lecture en base de tous les clients");
+				
+			}
+
+		}finally {
+			if (em != null) {
 				em.close();
 			}
 		}

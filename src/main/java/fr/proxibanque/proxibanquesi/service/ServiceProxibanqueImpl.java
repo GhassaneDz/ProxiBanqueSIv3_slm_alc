@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.ws.rs.core.Response;
 
+import org.slf4j.Logger;
 import fr.proxibanque.proxibanquesi.dao.ClientDao;
 import fr.proxibanque.proxibanquesi.dao.ClientDaoImp;
 import fr.proxibanque.proxibanquesi.dao.CompteDao;
@@ -14,6 +15,7 @@ import fr.proxibanque.proxibanquesi.model.Client;
 import fr.proxibanque.proxibanquesi.model.Compte;
 import fr.proxibanque.proxibanquesi.model.CompteCourant;
 import fr.proxibanque.proxibanquesi.model.CompteEpargne;
+import fr.proxibanque.proxibanquesi.util.UtilitaireLogger;
 
 
 public class ServiceProxibanqueImpl implements GestionClientService, SIService {
@@ -22,11 +24,13 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService {
 	
 	ClientDao clientDao = new ClientDaoImp();
 	CompteDao compteDao = new CompteDaoImp();
-	
+	Logger LOGGER=UtilitaireLogger.LOGGER;
+
 	// *** CLIENTS ***
 
 	@Override
 	public Response creerClient(Client newclient) {
+		LOGGER.info("creation dun nouveau client depuis le service");
 		CompteCourant cc = creerCompteCourant();
 		newclient.setCompteCourant(cc);
 		clientDao.creerClient(newclient);
@@ -35,6 +39,7 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService {
 
 	@Override
 	public Client obtenirClient(long idClient) {
+		LOGGER.info("recupération du client "+idClient +" depuis la couche service");
 		return clientDao.obtenirClient(idClient);
 	}
 	
