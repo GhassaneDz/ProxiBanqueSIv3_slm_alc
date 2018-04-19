@@ -13,6 +13,8 @@ import fr.proxibanque.proxibanquesi.dao.CompteDaoImp;
 import fr.proxibanque.proxibanquesi.model.Client;
 import fr.proxibanque.proxibanquesi.model.Compte;
 import fr.proxibanque.proxibanquesi.model.CompteCourant;
+import fr.proxibanque.proxibanquesi.model.CompteEpargne;
+
 
 public class ServiceProxibanqueImpl implements GestionClientService, SIService {
 
@@ -97,4 +99,23 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService {
 		
 	}
 		
+	 private CompteEpargne creerCompteEpargne() {
+		long numero = genererNumero();
+		double tauxrenum = 0.3;
+		String dateOuverture = today();
+		CompteEpargne compteepargne = new CompteEpargne(numero, 0.0, dateOuverture, tauxrenum);
+		return compteepargne;
+	}
+
+	@Override
+	public Response associerCompteEpargne(long idClient) {
+		//Client client = obtenirClient(idClient);
+		Client client = clientDao.obtenirClient(idClient);
+		CompteEpargne compteepargne = creerCompteEpargne();
+		client.setCompteEpargne(compteepargne);
+		clientDao.modifierClient(client);
+		//modifierClient(client);
+		return Response.ok().build();
+	}
+
 }

@@ -14,6 +14,11 @@ import fr.proxibanque.proxibanquesi.model.CompteCourant;
  *
  */
 public interface SIService {
+	CompteCourant creerCompteCourant();
+
+	@POST
+	@Path("/associercompteepargne/{idClient}")
+	Response associerCompteEpargne(@PathParam("idClient") long idClient);
 
 	CompteCourant creerCompteCourant();
 

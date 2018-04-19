@@ -36,8 +36,12 @@ public class Client {
 	private String telephone;
 
 	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
-	@JoinColumn(name = "compte_id", unique = true)
+	@JoinColumn(name = "compte_courant_id", unique = true)
 	private CompteCourant compteCourant;
+	
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
+	@JoinColumn(name = "compte_epargne_id", unique = true)
+	private CompteEpargne compteEpargne;
 
 	// *** CONSTRUCTORS ***
 
@@ -118,8 +122,19 @@ public class Client {
 	public void setCompteCourant(CompteCourant compteCourant) {
 		this.compteCourant = compteCourant;
 	}
+	
+
+	public CompteEpargne getCompteEpargne() {
+		return compteEpargne;
+	}
+
+	public void setCompteEpargne(CompteEpargne compteEpargne) {
+		this.compteEpargne = compteEpargne;
+	}
+	
 
 	// *** OTHER METHODS ***
+
 
 	@Override
 	public String toString() {

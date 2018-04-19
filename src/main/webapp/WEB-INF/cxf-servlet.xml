@@ -27,5 +27,5 @@
 	</jaxrs:server>
 
 	<bean id="pbBean" class="fr.proxibanque.proxibanquesi.service.ServiceProxibanqueImpl"></bean>
-	
+
 </beans>
