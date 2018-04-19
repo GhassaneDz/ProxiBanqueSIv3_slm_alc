@@ -1,0 +1,89 @@
+@charset "UTF-8";
+html {
+	background: #DDD;
+	font-family: Helvetica;
+}
+
+body {
+	background: #FFF;
+	width: 700px;
+	margin: 0 auto 0 auto;
+	padding: 10px;
+}
+
+.infos p {
+	margin: 5px 0 5px 0;
+}
+
+
+.profile {
+	float: right;
+	padding: 10px;
+}
+
+h1, h3 {
+	text-align: center;
+	font-family: verdana;
+	color: black;
+}
+
+ul, ol {
+	list-style-type: none;
+}
+
+.skills ul {
+	width: 35%;
+	margin-top: 0;
+}
+.skills .first {
+	float: left;
+}
+.skills .second {
+	margin-left: 50%;
+}
+
+#header, #nav, #footer{
+	margin: 10px;
+	padding: 10px;
+}
+
+*{
+	font-family: Garamond, sans-serif;
+}
+
+body{
+	width: 960px;
+	margin: 0px auto;
+}
+
+.nav>li{
+	display: inline;
+	padding: 5px;
+}
+
+a{
+	text-decoration: none;
+}
+
+#content{
+	overflow: auto;
+	height: 100%;
+}
+
+.column1{
+	width: 300px;
+	float: left;
+	margin: 10px;
+}
+
+.column2{
+	background-color: rgb(192,216,180);
+	width: 500px;
+	float: left;
+	margin: 10px;
+}
+
+table{
+	border-collapse: collapse;
+	text-align: justify;
+}
