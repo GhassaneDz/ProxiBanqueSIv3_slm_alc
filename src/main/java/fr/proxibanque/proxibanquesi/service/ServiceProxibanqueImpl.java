@@ -136,19 +136,33 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService {
 		ArrayList<Compte> listeComptes = new ArrayList<>();
 		CompteCourant compteCourant = client.getCompteCourant();
 		CompteEpargne compteEpargne = client.getCompteEpargne();
+		LOGGER.debug("recuperation des ccomptes du client "+idClient);
 		if (compteCourant != null) {
 			listeComptes.add(compteCourant);
+			LOGGER.error("erreur de listerComteClient : le Client "+idClient+"n'a pas de compte courant");
 		}
 		if (compteEpargne != null) {
 			listeComptes.add(compteEpargne);
+			LOGGER.error("erreur de listerComteClient : le Client "+idClient+"n'a pas de compte epargne");
 		}
 		return listeComptes;
 	}
+	
+	@Override
+	public Response crediterCompte(long numerocompte, double montant) {
+		LOGGER.debug("apport sur le compte n°" + numerocompte);
+		Compte comptecredite = compteDao.obtenirCompte(numerocompte);
+		comptecredite.setSolde(comptecredite.getSolde()+montant);
+		compteDao.modifierCompte(comptecredite);
+		return Response.ok().build();
+	}
+
 	
 	// *** MOCKITO ***
 	
 	public void setDao(ClientDao clientDao) {
 		this.clientDao = clientDao;
 	}
+
 
 }
