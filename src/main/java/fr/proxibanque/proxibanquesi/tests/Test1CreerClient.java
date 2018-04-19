@@ -4,6 +4,12 @@ import fr.proxibanque.proxibanquesi.dao.ClientDao;
 import fr.proxibanque.proxibanquesi.dao.ClientDaoImp;
 import fr.proxibanque.proxibanquesi.model.Client;
 
+/**
+ * Test pour valider la création d'un client dans la BDD 
+ * Test pour la couche DAO
+ * @author Sandrine Le Mentec et Anthony Le Cigne
+ *
+ */
 public class Test1CreerClient {
 
 	public static void main(String[] args) {
