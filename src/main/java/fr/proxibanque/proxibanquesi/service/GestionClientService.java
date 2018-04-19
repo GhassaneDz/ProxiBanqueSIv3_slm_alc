@@ -5,6 +5,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.core.Response;
 
 import fr.proxibanque.proxibanquesi.model.Client;
 
@@ -22,7 +23,7 @@ public interface GestionClientService {
 	 */
 	@POST
 	@Path("/client/")
-	public void creerClient(Client client);
+	public Response creerClient(Client client);
 	
 	/**
 	 * @return le client recherché avec son id
@@ -35,13 +36,13 @@ public interface GestionClientService {
 	 * @param clientmodif
 	 * @return
 	 */
-	public Client modifierClient(Client clientModif);
+	public Response modifierClient(Client clientModif);
 	
 	/**
 	 * suppression du client
 	 */
 	@DELETE
 	@Path("/client/{idClient}")
-	public void supprimerClient(@PathParam("idClient") long idClient);
+	public Response supprimerClient(@PathParam("idClient") long idClient);
 
 }

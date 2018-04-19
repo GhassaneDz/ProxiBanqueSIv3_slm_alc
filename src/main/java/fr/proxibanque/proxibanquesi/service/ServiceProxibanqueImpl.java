@@ -1,5 +1,7 @@
 package fr.proxibanque.proxibanquesi.service;
 
+import javax.ws.rs.core.Response;
+
 import fr.proxibanque.proxibanquesi.dao.ClientDao;
 import fr.proxibanque.proxibanquesi.dao.ClientDaoImp;
 import fr.proxibanque.proxibanquesi.model.Client;
@@ -9,8 +11,9 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService {
 	ClientDao clientDao = new ClientDaoImp();
 
 	@Override
-	public void creerClient(Client newclient) {
+	public Response creerClient(Client newclient) {
 		clientDao.creerClient(newclient);
+		return Response.ok().build();
 	}
 
 	@Override
@@ -19,17 +22,14 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService {
 	}
 
 	@Override
-	public Client modifierClient(Client clientModif) {
-		// TODO Auto-generated method stub
-		
-		return null;
+	public Response modifierClient(Client clientModif) {
+		return Response.ok().build();
 	}
 
 	@Override
-	public void supprimerClient(long idClient) {
+	public Response supprimerClient(long idClient) {
 		clientDao.supprimerClient(idClient);
-		
-
+		return Response.ok().build();
 	}
 
 }
