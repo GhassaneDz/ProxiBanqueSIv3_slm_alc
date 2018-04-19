@@ -22,7 +22,8 @@ import javax.xml.bind.annotation.XmlType;
 @Entity
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(propOrder = { "idClient", "nom", "prenom", "adresse", "codePostal", "ville", "telephone", "compteCourant" })
+@XmlType(propOrder = { "idClient", "nom", "prenom", "adresse", "codePostal", "ville", "telephone", "compteCourant",
+		"compteEpargne" })
 public class Client {
 
 	@Id

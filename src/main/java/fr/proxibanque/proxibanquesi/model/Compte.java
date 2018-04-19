@@ -18,8 +18,6 @@ import javax.xml.bind.annotation.XmlType;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(propOrder = { "numeroCompte", "solde", "dateOuverture" })
 public abstract class Compte {
 
 	/**

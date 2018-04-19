@@ -14,6 +14,7 @@ import fr.proxibanque.proxibanquesi.model.CompteCourant;
  *
  */
 public interface SIService {
+
 	CompteCourant creerCompteCourant();
 
 	@POST
