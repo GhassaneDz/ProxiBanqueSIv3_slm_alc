@@ -31,7 +31,7 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService {
 
 	@Override
 	public Response creerClient(Client newclient) {
-		LOGGER.info("creation dun nouveau client depuis le service");
+		LOGGER.debug("creation dun nouveau client depuis la couche service");
 		CompteCourant cc = creerCompteCourant();
 		newclient.setCompteCourant(cc);
 		clientDao.creerClient(newclient);
@@ -40,23 +40,26 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService {
 
 	@Override
 	public Client obtenirClient(long idClient) {
-		LOGGER.info("recupération du client "+idClient +" depuis la couche service");
+		LOGGER.debug("appel du client "+idClient +" depuis la couche service");
 		return clientDao.obtenirClient(idClient);
 	}
 	
 	@Override
 	public List<Client> afficherListeClient() {
+		LOGGER.debug("recuperation de la liste de tous les clients depuis la couche service");
 		return clientDao.obtenirTousLesClients();
 	}
 
 	@Override
 	public Response modifierClient(Client clientModif) {
+		LOGGER.debug("modification du client "+ clientModif.getIdClient()+" depuis la couche service");
 		clientDao.modifierClient(clientModif);
 		return Response.ok().build();
 	}
 
 	@Override
 	public Response supprimerClient(long idClient) {
+		LOGGER.debug("appel pour la suppression du client "+idClient+"depuis la couche service");
 		clientDao.supprimerClient(idClient);
 		return Response.ok().build();
 	}
@@ -68,6 +71,7 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService {
 		long numero = genererNumero();
 		String dateOuverture = today();
 		CompteCourant compteCourant = new CompteCourant(numero, 0.0, dateOuverture);
+		LOGGER.debug("creation du Compte Courant n°"+numero);
 		return compteCourant;
 	}
 
@@ -89,13 +93,15 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService {
 		
 		double soldeSrc = compteSrc.getSolde();
 		double soldeDest = compteDest.getSolde();
-
+		LOGGER.info("tentative virement du compte n°"+numeroCompteSrc+" vers le compte n°"+numeroCompteDest+"d'un montant de "+montant);
 		if (soldeSrc - montant > DECOUVERT_MAX) {
 			compteSrc.setSolde(soldeSrc - montant);
 			compteDest.setSolde(soldeDest + montant);
+			LOGGER.debug("virement du compte n°"+numeroCompteSrc+" vers le compte n°"+numeroCompteDest+"d'un montant de "+montant+" reussi");
 		} else {
 			// TODO Faire une erreur plus élaborée - throw ?
-			System.err.println("Dépassement du découvert autorisé !");
+			//System.err.println("Dépassement du découvert autorisé !");
+			LOGGER.error("Virement refusé. Dépassement du découvert autorisé pour le compte n°"+numeroCompteSrc);
 		}
 		
 		compteDao.modifierCompte(compteSrc);
@@ -110,6 +116,7 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService {
 		double tauxrenum = 0.03;
 		String dateOuverture = today();
 		CompteEpargne compteepargne = new CompteEpargne(numero, 0.0, dateOuverture, tauxrenum);
+		LOGGER.debug("creation du Compte Epargne n°"+numero);
 		return compteepargne;
 	}
 
@@ -119,6 +126,7 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService {
 		CompteEpargne compteepargne = creerCompteEpargne();
 		client.setCompteEpargne(compteepargne);
 		clientDao.modifierClient(client);
+		LOGGER.debug("association du compte epargne n°"+ compteepargne.getNumeroCompte() + " au client n°"+idClient);
 		return Response.ok().build();
 	}
 	
