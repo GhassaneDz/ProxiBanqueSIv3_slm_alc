@@ -11,7 +11,7 @@ public class ClientDaoImp implements ClientDao {
 	public void creerClient(Client client) {
 		EntityManager em = JPAUtil.getEntityManager();
 		EntityTransaction txn = em.getTransaction();
-		
+
 		try {
 			txn.begin();
 			em.persist(client);
@@ -25,13 +25,29 @@ public class ClientDaoImp implements ClientDao {
 			if (em != null) {
 				em.close();
 			}
-		}		
+		}
 	}
 
 	@Override
-	public Client updateClientById(long id, Client clientmodif) {
-		// TODO Auto-generated method stub
-		return null;
+	public Client obtenirClient(long idClient) {
+		EntityManager em = JPAUtil.getEntityManager();
+		EntityTransaction txn = em.getTransaction();
+		Client client = null;
+
+		try {
+			txn.begin();
+			client = em.find(Client.class, idClient);
+		} catch (Exception e) {
+			if (txn != null) {
+				txn.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			if (em != null) {
+				em.close();
+			}
+		}
+		return client;
 	}
 
 }

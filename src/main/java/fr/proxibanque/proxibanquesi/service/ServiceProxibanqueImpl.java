@@ -21,7 +21,7 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService {
 	}
 
 	@Override
-	public Client modifierClient(Client clientmodif) {
+	public Client modifierClient(Client clientModif) {
 		// TODO Auto-generated method stub
 		return null;
 	}

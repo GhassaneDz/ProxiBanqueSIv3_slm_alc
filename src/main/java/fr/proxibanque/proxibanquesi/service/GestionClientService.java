@@ -1,4 +1,8 @@
 package fr.proxibanque.proxibanquesi.service;
+
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+
 import fr.proxibanque.proxibanquesi.model.Client;
 
 /**
@@ -7,28 +11,29 @@ import fr.proxibanque.proxibanquesi.model.Client;
  *
  */
 public interface GestionClientService {
+
 	/**
 	 * creer un client en appelant l'interface DAO
 	 * @param newclient
 	 */
-	public void creerClient(Client newclient);
+	@POST
+	@Path("/client/")
+	public void creerClient(Client client);
+	
 	/**
 	 * @return le client rechercher avec son id
 	 */
 	public Client afficherClient(long id);
+	
 	/**
 	 * @param clientmodif
 	 * @return
 	 */
-	public Client modifierClient(Client clientmodif);
+	public Client modifierClient(Client clientModif);
+	
 	/**
 	 * 
 	 */
 	public void supprimerClient();
-	
-	
-	
-	
-	
 
 }
