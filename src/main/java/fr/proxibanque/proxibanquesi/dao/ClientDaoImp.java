@@ -28,4 +28,10 @@ public class ClientDaoImp implements ClientDao {
 		}		
 	}
 
+	@Override
+	public Client updateClientById(long id, Client clientmodif) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
