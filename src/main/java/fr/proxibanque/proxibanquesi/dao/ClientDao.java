@@ -10,6 +10,8 @@ public interface ClientDao {
 	
 	Client obtenirClient(long idClient);
 	
+	void modifierClient(Client client);
+	
 	void supprimerClient(long idClient);
 	
 	List<Client> obtenirTousLesClients();

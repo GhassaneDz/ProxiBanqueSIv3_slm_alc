@@ -24,6 +24,7 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService {
 
 	@Override
 	public Response modifierClient(Client clientModif) {
+		clientDao.modifierClient(clientModif);
 		return Response.ok().build();
 	}
 
