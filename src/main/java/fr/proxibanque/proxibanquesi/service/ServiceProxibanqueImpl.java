@@ -1,6 +1,7 @@
 package fr.proxibanque.proxibanquesi.service;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -114,13 +115,26 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService {
 
 	@Override
 	public Response associerCompteEpargne(long idClient) {
-		//Client client = obtenirClient(idClient);
 		Client client = clientDao.obtenirClient(idClient);
 		CompteEpargne compteepargne = creerCompteEpargne();
 		client.setCompteEpargne(compteepargne);
 		clientDao.modifierClient(client);
-		//modifierClient(client);
 		return Response.ok().build();
+	}
+	
+	@Override
+	public List<Compte> listerComptesClient(long idClient) {
+		Client client = clientDao.obtenirClient(idClient);
+		ArrayList<Compte> listeComptes = new ArrayList<>();
+		CompteCourant compteCourant = client.getCompteCourant();
+		CompteEpargne compteEpargne = client.getCompteEpargne();
+		if (compteCourant != null) {
+			listeComptes.add(compteCourant);
+		}
+		if (compteEpargne != null) {
+			listeComptes.add(compteEpargne);
+		}
+		return listeComptes;
 	}
 	
 	// *** MOCKITO ***
