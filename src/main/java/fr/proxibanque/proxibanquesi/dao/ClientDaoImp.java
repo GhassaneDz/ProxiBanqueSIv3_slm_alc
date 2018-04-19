@@ -50,4 +50,24 @@ public class ClientDaoImp implements ClientDao {
 		return client;
 	}
 
+	@Override
+	public void supprimerClient(long idClient) {
+		EntityManager em = JPAUtil.getEntityManager();
+		EntityTransaction txn = em.getTransaction();
+		try {
+			txn.begin();
+			em.remove(em.find(Client.class, idClient));
+			txn.commit();
+		} catch (Exception e) {
+			if (txn != null) {
+				txn.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			if (em != null) {
+				em.close();
+			}
+		}
+	}
+
 }

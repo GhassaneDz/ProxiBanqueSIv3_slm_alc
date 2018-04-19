@@ -8,4 +8,6 @@ public interface ClientDao {
 	
 	Client obtenirClient(long idClient);
 	
+	void supprimerClient(long idClient);
+	
 }

@@ -58,3 +58,69 @@
 10:59:27.186 1125 [main] INFO  java.sql.DatabaseMetaData - HHH000262: Table not found: Compte
 10:59:27.186 1125 [main] INFO  java.sql.DatabaseMetaData - HHH000262: Table not found: CompteCourant
 10:59:29.151 3090 [main] INFO  o.h.tool.hbm2ddl.SchemaUpdate - HHH000232: Schema update complete
+12:33:11.038 156  [main] WARN  o.h.ejb.HibernatePersistence - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
+12:33:11.053 171  [main] WARN  o.h.ejb.HibernatePersistence - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
+12:33:11.053 171  [main] WARN  o.h.ejb.HibernatePersistence - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
+12:33:11.100 218  [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: my-pu
+	...]
+12:33:11.147 265  [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {4.3.5.Final}
+12:33:11.147 265  [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+12:33:11.147 265  [main] INFO  org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+12:33:11.287 405  [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+12:33:11.303 421  [main] WARN  o.h.e.j.c.i.DriverManagerConnectionProviderImpl - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+12:33:11.303 421  [main] INFO  o.h.e.j.c.i.DriverManagerConnectionProviderImpl - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/proxibanquesislmalc?createDatabaseIfNotExist=true]
+12:33:11.303 421  [main] INFO  o.h.e.j.c.i.DriverManagerConnectionProviderImpl - HHH000046: Connection properties: {user=root}
+12:33:11.303 421  [main] INFO  o.h.e.j.c.i.DriverManagerConnectionProviderImpl - HHH000006: Autocommit mode: false
+12:33:11.303 421  [main] INFO  o.h.e.j.c.i.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+12:33:11.553 671  [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+12:33:11.631 749  [main] INFO  o.h.h.i.a.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+12:33:11.849 967  [main] INFO  o.h.tool.hbm2ddl.SchemaUpdate - HHH000228: Running hbm2ddl schema update
+12:33:11.849 967  [main] INFO  o.h.tool.hbm2ddl.SchemaUpdate - HHH000102: Fetching database metadata
+12:33:11.849 967  [main] INFO  o.h.tool.hbm2ddl.SchemaUpdate - HHH000396: Updating schema
+12:33:11.849 967  [main] INFO  o.h.tool.hbm2ddl.TableMetadata - HHH000261: Table found: proxibanquesislmalc.client
+12:33:11.849 967  [main] INFO  o.h.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [ville, codepostal, adresse, telephone, idclient, nom, prenom]
+12:33:11.849 967  [main] INFO  o.h.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+12:33:11.849 967  [main] INFO  o.h.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+12:33:11.865 983  [main] INFO  o.h.tool.hbm2ddl.TableMetadata - HHH000261: Table found: proxibanquesislmalc.compte
+12:33:11.865 983  [main] INFO  o.h.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [numerocompte, dateouverture, solde]
+12:33:11.865 983  [main] INFO  o.h.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+12:33:11.865 983  [main] INFO  o.h.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+12:33:11.865 983  [main] INFO  o.h.tool.hbm2ddl.TableMetadata - HHH000261: Table found: proxibanquesislmalc.comptecourant
+12:33:11.865 983  [main] INFO  o.h.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [numerocompte]
+12:33:11.865 983  [main] INFO  o.h.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk_cpaijb3a9ruo5alree6ntsr7l]
+12:33:11.865 983  [main] INFO  o.h.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+12:33:11.865 983  [main] INFO  o.h.tool.hbm2ddl.SchemaUpdate - HHH000232: Schema update complete
+12:35:39.439 156  [main] WARN  o.h.ejb.HibernatePersistence - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
+12:35:39.439 156  [main] WARN  o.h.ejb.HibernatePersistence - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
+12:35:39.439 156  [main] WARN  o.h.ejb.HibernatePersistence - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
+12:35:39.486 203  [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: my-pu
+	...]
+12:35:39.533 250  [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {4.3.5.Final}
+12:35:39.533 250  [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+12:35:39.533 250  [main] INFO  org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+12:35:39.673 390  [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+12:35:39.689 406  [main] WARN  o.h.e.j.c.i.DriverManagerConnectionProviderImpl - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+12:35:39.689 406  [main] INFO  o.h.e.j.c.i.DriverManagerConnectionProviderImpl - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/proxibanquesislmalc?createDatabaseIfNotExist=true]
+12:35:39.689 406  [main] INFO  o.h.e.j.c.i.DriverManagerConnectionProviderImpl - HHH000046: Connection properties: {user=root}
+12:35:39.689 406  [main] INFO  o.h.e.j.c.i.DriverManagerConnectionProviderImpl - HHH000006: Autocommit mode: false
+12:35:39.689 406  [main] INFO  o.h.e.j.c.i.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+12:35:39.954 671  [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+12:35:40.032 749  [main] INFO  o.h.h.i.a.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+12:35:40.250 967  [main] INFO  o.h.tool.hbm2ddl.SchemaUpdate - HHH000228: Running hbm2ddl schema update
+12:35:40.250 967  [main] INFO  o.h.tool.hbm2ddl.SchemaUpdate - HHH000102: Fetching database metadata
+12:35:40.250 967  [main] INFO  o.h.tool.hbm2ddl.SchemaUpdate - HHH000396: Updating schema
+12:35:40.266 983  [main] INFO  o.h.tool.hbm2ddl.TableMetadata - HHH000261: Table found: proxibanquesislmalc.client
+12:35:40.266 983  [main] INFO  o.h.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [ville, codepostal, adresse, telephone, idclient, nom, prenom]
+12:35:40.266 983  [main] INFO  o.h.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+12:35:40.266 983  [main] INFO  o.h.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+12:35:40.266 983  [main] INFO  o.h.tool.hbm2ddl.TableMetadata - HHH000261: Table found: proxibanquesislmalc.compte
+12:35:40.266 983  [main] INFO  o.h.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [numerocompte, dateouverture, solde]
+12:35:40.266 983  [main] INFO  o.h.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+12:35:40.266 983  [main] INFO  o.h.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+12:35:40.266 983  [main] INFO  o.h.tool.hbm2ddl.TableMetadata - HHH000261: Table found: proxibanquesislmalc.comptecourant
+12:35:40.266 983  [main] INFO  o.h.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [numerocompte]
+12:35:40.266 983  [main] INFO  o.h.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk_cpaijb3a9ruo5alree6ntsr7l]
+12:35:40.266 983  [main] INFO  o.h.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+12:35:40.266 983  [main] INFO  o.h.tool.hbm2ddl.SchemaUpdate - HHH000232: Schema update complete

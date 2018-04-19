@@ -10,7 +10,6 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService {
 
 	@Override
 	public void creerClient(Client newclient) {
-		// TODO creer le client
 		clientDao.creerClient(newclient);
 
 	}
@@ -23,12 +22,14 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService {
 	@Override
 	public Client modifierClient(Client clientModif) {
 		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	@Override
-	public void supprimerClient() {
-		// TODO Auto-generated method stub
+	public void supprimerClient(long idClient) {
+		clientDao.supprimerClient(idClient);
+		
 
 	}
 
