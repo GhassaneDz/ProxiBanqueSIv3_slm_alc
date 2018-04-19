@@ -22,7 +22,7 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService {
 	
 	ClientDao clientDao = new ClientDaoImp();
 	CompteDao compteDao = new CompteDaoImp();
-
+	
 	// *** CLIENTS ***
 
 	@Override
@@ -116,6 +116,12 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService {
 		clientDao.modifierClient(client);
 		//modifierClient(client);
 		return Response.ok().build();
+	}
+	
+	// *** MOCKITO ***
+	
+	public void setDao(ClientDao clientDao) {
+		this.clientDao = clientDao;
 	}
 
 }
