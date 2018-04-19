@@ -2,22 +2,27 @@ package fr.proxibanque.proxibanquesi.service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.ws.rs.core.Response;
-import java.util.List;
 
 import fr.proxibanque.proxibanquesi.dao.ClientDao;
 import fr.proxibanque.proxibanquesi.dao.ClientDaoImp;
+import fr.proxibanque.proxibanquesi.dao.CompteDao;
+import fr.proxibanque.proxibanquesi.dao.CompteDaoImp;
 import fr.proxibanque.proxibanquesi.model.Client;
 import fr.proxibanque.proxibanquesi.model.Compte;
 import fr.proxibanque.proxibanquesi.model.CompteCourant;
 
-public class ServiceProxibanqueImpl implements GestionClientService, SIService, CompteService {
+public class ServiceProxibanqueImpl implements GestionClientService, SIService {
 
+	private static final double DECOUVERT_MAX = -1000.0;
+	
 	ClientDao clientDao = new ClientDaoImp();
+	CompteDao compteDao = new CompteDaoImp();
 
 	// *** CLIENTS ***
-	
+
 	@Override
 	public Response creerClient(Client newclient) {
 		CompteCourant cc = creerCompteCourant();
@@ -29,6 +34,11 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService, 
 	@Override
 	public Client obtenirClient(long idClient) {
 		return clientDao.obtenirClient(idClient);
+	}
+	
+	@Override
+	public List<Client> afficherListeClient() {
+		return clientDao.obtenirTousLesClients();
 	}
 
 	@Override
@@ -42,9 +52,9 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService, 
 		clientDao.supprimerClient(idClient);
 		return Response.ok().build();
 	}
-	
+
 	// *** COMPTES ***
-	
+
 	@Override
 	public CompteCourant creerCompteCourant() {
 		long numero = genererNumero();
@@ -65,8 +75,26 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService, 
 	}
 
 	@Override
-	public List<Client> afficherListeClient() {
-		return clientDao.obtenirTousLesClients();
-	}
+	public Response faireVirement(long numeroCompteSrc, long numeroCompteDest, double montant) {
+		Compte compteSrc = compteDao.obtenirCompte(numeroCompteSrc);
+		Compte compteDest = compteDao.obtenirCompte(numeroCompteDest);
+		
+		double soldeSrc = compteSrc.getSolde();
+		double soldeDest = compteDest.getSolde();
 
+		if (soldeSrc - montant > DECOUVERT_MAX) {
+			compteSrc.setSolde(soldeSrc - montant);
+			compteDest.setSolde(soldeDest + montant);
+		} else {
+			// TODO Faire une erreur plus élaborée - throw ?
+			System.err.println("Dépassement du découvert autorisé !");
+		}
+		
+		compteDao.modifierCompte(compteSrc);
+		compteDao.modifierCompte(compteDest);
+		
+		return Response.ok().build();
+		
+	}
+		
 }

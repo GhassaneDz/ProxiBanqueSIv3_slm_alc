@@ -16,10 +16,16 @@
 
 	<jaxrs:server id="gestionClient" address="/gestionclient">
 		<jaxrs:serviceBeans>
-			<ref bean="serviceBean" />
+			<ref bean="pbBean" />
 		</jaxrs:serviceBeans>
 	</jaxrs:server>
 
-	<bean id="serviceBean" class="fr.proxibanque.proxibanquesi.service.ServiceProxibanqueImpl"></bean>
+	<jaxrs:server id="service" address="/service">
+		<jaxrs:serviceBeans>
+			<ref bean="pbBean" />
+		</jaxrs:serviceBeans>
+	</jaxrs:server>
 
+	<bean id="pbBean" class="fr.proxibanque.proxibanquesi.service.ServiceProxibanqueImpl"></bean>
+	
 </beans>
