@@ -20,8 +20,6 @@ public interface SIService {
 	@Path("/associercompteepargne/{idClient}")
 	Response associerCompteEpargne(@PathParam("idClient") long idClient);
 
-	CompteCourant creerCompteCourant();
-
 	@POST
 	@Path("/virement/{numSrc}/{numDest}/{montant}")
 	Response faireVirement(@PathParam("numSrc") long numeroCompteSrc, @PathParam("numDest") long numeroCompteDest,

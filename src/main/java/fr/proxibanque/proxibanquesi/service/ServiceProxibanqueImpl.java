@@ -101,7 +101,7 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService {
 		
 	 private CompteEpargne creerCompteEpargne() {
 		long numero = genererNumero();
-		double tauxrenum = 0.3;
+		double tauxrenum = 0.03;
 		String dateOuverture = today();
 		CompteEpargne compteepargne = new CompteEpargne(numero, 0.0, dateOuverture, tauxrenum);
 		return compteepargne;
