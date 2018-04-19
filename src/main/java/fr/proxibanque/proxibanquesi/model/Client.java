@@ -1,9 +1,14 @@
 package fr.proxibanque.proxibanquesi.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -16,8 +21,8 @@ import javax.xml.bind.annotation.XmlType;
 
 @Entity
 @XmlRootElement
-// TODO Ordre des attributs
-//@XmlType
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(propOrder = { "idClient", "nom", "prenom", "adresse", "codePostal", "ville", "telephone", "compteCourant" })
 public class Client {
 
 	@Id
@@ -29,7 +34,10 @@ public class Client {
 	private String codePostal;
 	private String ville;
 	private String telephone;
-	// TODO Compte
+
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
+	@JoinColumn(name = "compte_id", unique = true)
+	private CompteCourant compteCourant;
 
 	// *** CONSTRUCTORS ***
 
@@ -104,7 +112,7 @@ public class Client {
 	}
 
 	// *** OTHER METHODS ***
-	
+
 	@Override
 	public String toString() {
 		return "Client [idClient=" + idClient + ", nom=" + nom + ", prenom=" + prenom + ", adresse=" + adresse
