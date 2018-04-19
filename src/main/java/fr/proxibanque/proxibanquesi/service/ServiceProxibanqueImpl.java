@@ -1,5 +1,8 @@
 package fr.proxibanque.proxibanquesi.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import fr.proxibanque.proxibanquesi.dao.ClientDao;
 import fr.proxibanque.proxibanquesi.dao.ClientDaoImp;
 import fr.proxibanque.proxibanquesi.model.Client;
@@ -30,6 +33,12 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService {
 		clientDao.supprimerClient(idClient);
 		
 
+	}
+
+	@Override
+	public List<Client> afficherListeClient() {
+		// TODO Auto-generated method stub
+		return clientDao.obtenirTousLesClients();
 	}
 
 }

@@ -1,6 +1,9 @@
 package fr.proxibanque.proxibanquesi.service;
 
 import javax.ws.rs.GET;
+
+import java.util.List;
+
 import javax.ws.rs.DELETE;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -10,6 +13,7 @@ import fr.proxibanque.proxibanquesi.model.Client;
 
 /**
  * Gestion Client : CRUD 
+ * Gestion des comptes
  * @author Sandrine Le Mentec, Anthony Le Cigne
  *
  */
@@ -25,7 +29,7 @@ public interface GestionClientService {
 	public void creerClient(Client client);
 	
 	/**
-	 * @return le client recherché avec son id
+	 * @return le client recherché à partir de son id
 	 */
 	@GET
 	@Path("/client/{idClient}")
@@ -43,5 +47,10 @@ public interface GestionClientService {
 	@DELETE
 	@Path("/client/{idClient}")
 	public void supprimerClient(@PathParam("idClient") long idClient);
+	
+	@GET
+	@Path("/client/all")
+	public List<Client> afficherListeClient();
+	
 
 }

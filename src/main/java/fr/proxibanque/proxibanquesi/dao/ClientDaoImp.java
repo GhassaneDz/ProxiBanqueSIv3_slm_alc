@@ -1,7 +1,11 @@
 package fr.proxibanque.proxibanquesi.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 
 import fr.proxibanque.proxibanquesi.model.Client;
 
@@ -68,6 +72,24 @@ public class ClientDaoImp implements ClientDao {
 				em.close();
 			}
 		}
+	}
+
+	@Override
+	public List<Client> obtenirTousLesClients() {
+		// TODO Auto-generated method stub
+		 EntityManager em = JPAUtil.getEntityManager(); 
+		 EntityTransaction txn = em.getTransaction(); 
+		 List<Client> listeClients = new ArrayList<>(); 
+		 try {
+			 TypedQuery<Client> tq = em.createQuery("SELECT c FROM Client c", Client.class); 
+			 listeClients = (ArrayList<Client>) tq.getResultList(); 
+		} catch (Exception e) {
+			if(txn !=null) {
+				em.close();
+			}
+		}
+
+		 return listeClients;
 	}
 
 }

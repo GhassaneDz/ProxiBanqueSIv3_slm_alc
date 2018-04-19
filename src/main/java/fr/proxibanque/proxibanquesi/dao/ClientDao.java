@@ -1,5 +1,7 @@
 package fr.proxibanque.proxibanquesi.dao;
 
+import java.util.List;
+
 import fr.proxibanque.proxibanquesi.model.Client;
 
 public interface ClientDao {
@@ -9,5 +11,7 @@ public interface ClientDao {
 	Client obtenirClient(long idClient);
 	
 	void supprimerClient(long idClient);
+	
+	List<Client> obtenirTousLesClients();
 	
 }
