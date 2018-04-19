@@ -4,7 +4,6 @@ import fr.proxibanque.proxibanquesi.dao.ClientDao;
 import fr.proxibanque.proxibanquesi.dao.ClientDaoImp;
 import fr.proxibanque.proxibanquesi.model.Client;
 import fr.proxibanque.proxibanquesi.model.CompteCourant;
-import fr.proxibanque.proxibanquesi.service.CompteService;
 import fr.proxibanque.proxibanquesi.service.GestionClientService;
 import fr.proxibanque.proxibanquesi.service.ServiceProxibanqueImpl;
 

@@ -2,17 +2,20 @@ package fr.proxibanque.proxibanquesi.service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.ws.rs.core.Response;
-import java.util.List;
+
+import org.hibernate.dialect.DataDirectOracle9Dialect;
 
 import fr.proxibanque.proxibanquesi.dao.ClientDao;
 import fr.proxibanque.proxibanquesi.dao.ClientDaoImp;
 import fr.proxibanque.proxibanquesi.model.Client;
-import fr.proxibanque.proxibanquesi.model.Compte;
 import fr.proxibanque.proxibanquesi.model.CompteCourant;
+import fr.proxibanque.proxibanquesi.model.CompteEpargne;
 
-public class ServiceProxibanqueImpl implements GestionClientService, SIService, CompteService {
+
+public class ServiceProxibanqueImpl implements GestionClientService, SIService {
 
 	ClientDao clientDao = new ClientDaoImp();
 
@@ -67,6 +70,26 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService, 
 	@Override
 	public List<Client> afficherListeClient() {
 		return clientDao.obtenirTousLesClients();
+	}
+
+	
+	 private CompteEpargne creerCompteEpargne() {
+		long numero = genererNumero();
+		double tauxrenum = 0.3;
+		String dateOuverture = today();
+		CompteEpargne compteepargne = new CompteEpargne(numero, 0.0, dateOuverture, tauxrenum);
+		return compteepargne;
+	}
+
+	@Override
+	public Response associerCompteEpargne(long idClient) {
+		//Client client = obtenirClient(idClient);
+		Client client = clientDao.obtenirClient(idClient);
+		CompteEpargne compteepargne = creerCompteEpargne();
+		client.setCompteEpargne(compteepargne);
+		clientDao.modifierClient(client);
+		//modifierClient(client);
+		return Response.ok().build();
 	}
 
 }

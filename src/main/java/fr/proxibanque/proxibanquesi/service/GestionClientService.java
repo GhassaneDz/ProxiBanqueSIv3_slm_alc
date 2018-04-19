@@ -53,6 +53,10 @@ public interface GestionClientService {
 	@Path("/client/{idClient}")
 	public Response supprimerClient(@PathParam("idClient") long idClient);
 
+	/**
+	 * 
+	 * @return
+	 */
 	@GET
 	@Path("/client/all")
 	public List<Client> afficherListeClient();
