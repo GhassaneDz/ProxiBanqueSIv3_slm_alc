@@ -4,32 +4,37 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 /**
- * Classe abstraite décrivant un compte 
+ * Classe abstraite décrivant un compte
+ * 
  * @author Sandrine Le Mentec et Anthony Le Cigne
  *
  */
 @Entity
-@Inheritance(strategy=InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(propOrder = { "numeroCompte", "solde", "dateOuverture" })
 public abstract class Compte {
-	
+
 	/**
-	 * numero de compte client PK de la table
-	 * (Id regénérée à la création du compte)
+	 * numero de compte client PK de la table (Id regénérée à la création du compte)
 	 */
 	@Id
-	private long numeroCompte;
+	protected long numeroCompte;
 	/**
 	 * solde du compte
 	 */
-	private double solde;
+	protected double solde;
 	/**
 	 * date d'ouverture du compte
 	 */
-	private String dateOuverture;
+	protected String dateOuverture;
 
 	public long getNumeroCompte() {
 		return numeroCompte;

@@ -111,6 +111,14 @@ public class Client {
 		this.telephone = telephone;
 	}
 
+	public CompteCourant getCompteCourant() {
+		return compteCourant;
+	}
+
+	public void setCompteCourant(CompteCourant compteCourant) {
+		this.compteCourant = compteCourant;
+	}
+
 	// *** OTHER METHODS ***
 
 	@Override
