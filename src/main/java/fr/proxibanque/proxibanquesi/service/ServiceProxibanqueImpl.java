@@ -6,18 +6,18 @@ import fr.proxibanque.proxibanquesi.model.Client;
 
 public class ServiceProxibanqueImpl implements GestionClientService, SIService {
 
-	ClientDao dao = new ClientDaoImp(); 
+	ClientDao clientDao = new ClientDaoImp();
+
 	@Override
 	public void creerClient(Client newclient) {
 		// TODO creer le client
-		dao.creerClient(newclient);
+		clientDao.creerClient(newclient);
 
 	}
 
 	@Override
-	public Client afficherClient(long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Client obtenirClient(long idClient) {
+		return clientDao.obtenirClient(idClient);
 	}
 
 	@Override

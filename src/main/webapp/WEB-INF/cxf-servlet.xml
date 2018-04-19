@@ -14,13 +14,12 @@
 	http://cxf.apache.org/jaxrs
 	http://cxf.apache.org/schemas/jaxrs.xsd">
 
-	<jaxrs:server id="clientService" address="/clientservice">
+	<jaxrs:server id="gestionClient" address="/gestionclient">
 		<jaxrs:serviceBeans>
 			<ref bean="serviceBean" />
 		</jaxrs:serviceBeans>
 	</jaxrs:server>
 
-	<!-- TODO Bean à créer -->
-	<!-- <bean id="serviceBean" class="net.lecigne.clientservrestsql.service.ClientServiceImp"></bean> -->
+	<bean id="serviceBean" class="fr.proxibanque.proxibanquesi.service.ServiceProxibanqueImpl"></bean>
 
 </beans>

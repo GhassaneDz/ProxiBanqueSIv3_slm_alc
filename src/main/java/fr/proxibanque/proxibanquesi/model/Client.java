@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * Cette classe décrit les caractéristiques d'un client ProxiBanque.
@@ -13,6 +15,9 @@ import javax.persistence.Id;
  */
 
 @Entity
+@XmlRootElement
+// TODO Ordre des attributs
+//@XmlType
 public class Client {
 
 	@Id
