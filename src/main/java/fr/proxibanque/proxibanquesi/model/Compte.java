@@ -4,10 +4,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
+@XmlRootElement
 public abstract class Compte {
+	
 	@Id
 	private long numeroCompte;
 	private double solde;

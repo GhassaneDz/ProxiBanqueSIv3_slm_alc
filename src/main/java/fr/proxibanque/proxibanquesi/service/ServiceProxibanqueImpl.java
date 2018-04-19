@@ -10,9 +10,7 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService {
 
 	@Override
 	public void creerClient(Client newclient) {
-		// TODO creer le client
 		clientDao.creerClient(newclient);
-
 	}
 
 	@Override
