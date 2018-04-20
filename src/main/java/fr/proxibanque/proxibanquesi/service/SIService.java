@@ -83,7 +83,7 @@ public interface SIService {
 	 * 				304 si une carte déjà attribuée au compte
 	 */
 	@PUT
-	@Path("/associerCB/{numerocompte}/{type}")
+	@Path("/associercb/{numerocompte}/{type}")
 	Response associerCB(@PathParam("numerocompte") long numerocompte, @PathParam("type") String type);
 	
 	/**
