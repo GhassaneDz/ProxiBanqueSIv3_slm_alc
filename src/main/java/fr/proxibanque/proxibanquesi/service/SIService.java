@@ -74,6 +74,6 @@ public interface SIService {
 	
 	@PUT
 	@Path("/associerCB/{numerocompte}/{type}")
-	Response associerCB(@PathParam("numerocompte") long numerocompte, @PathParam("type")String type);
+	Response associerCB(@PathParam("numerocompte") long numerocompte, @PathParam("type") String type);
 
 }
