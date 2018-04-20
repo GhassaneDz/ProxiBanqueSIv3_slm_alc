@@ -8,12 +8,22 @@
 <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
-	<p>Bienvenue, ${conseillerSession.prenom} ${conseillerSession.nom} (${conseillerSession.login}).</p>
+	<img src="img/banner.jpg" alt="">
+	<p>Bienvenue, <b>${conseillerSession.prenom} ${conseillerSession.nom}</b>
+		(${conseillerSession.login}).</p>
 	<p>
 		Afin d'utiliser les services ProxiBanqueSI, veuillez utiliser
 		l'application <a
 			href="https://addons.mozilla.org/en-US/firefox/addon/rester/">RESTer</a>
-		de Firefox. Les services disponsibles sont accessibles ici.</p>
-	<a href="Logout">Logout</a>
+		de Firefox. Les services disponsibles sont accessibles <a
+			href="services">ici</a>.
+	</p>
+	<p>
+		Afin de faciliter vos tests, vous pouvez créer un client par défaut dans la base de données :
+		<input type="button" value="Créer un client par défaut" onClick="doPost()">
+	</p>
+	<a href="Logout">Se déconnecter</a>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="restClient.js"></script>
 </body>
 </html>
