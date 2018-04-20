@@ -22,6 +22,9 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement
 public class CompteCourant extends Compte {
 
+	/**
+	 * numéro de carte bancaire FK dans la base Compte Courant
+	 */
 	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
 	@JoinColumn(name = "numero_carte", unique = true)
 	private CarteBancaire carte;

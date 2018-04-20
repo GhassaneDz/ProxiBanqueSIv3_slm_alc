@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlType;
 public abstract class Compte {
 
 	/**
-	 * Numéro de compte constituant la PK de la table
+	 * Numéro de compte constituant la PK de la table. 
 	 */
 	@Id
 	protected long numeroCompte;

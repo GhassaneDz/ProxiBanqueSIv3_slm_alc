@@ -76,8 +76,11 @@ public interface SIService {
 	/**
 	 * Associe une carte banquaire à un compte courant
 	 * @param numerocompte : numero du compte courant à associer
-	 * @param type : "e" si carte electron, "v" si visa
-	 * @return
+	 * @param type 
+	 * 				"e" si carte electron, 
+	 * 				"v" si visa
+	 * @return Reponse HTTP
+	 * 				304 si une carte déjà attribuée au compte
 	 */
 	@PUT
 	@Path("/associerCB/{numerocompte}/{type}")
@@ -89,6 +92,6 @@ public interface SIService {
 	 */
 	@GET
 	@Path("/audit")
-	List<Client> AuditAgence();
+	List<Client> auditAgence();
 
 }

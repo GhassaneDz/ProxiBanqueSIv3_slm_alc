@@ -28,6 +28,9 @@ import javax.xml.bind.annotation.XmlType;
 		"compteEpargne" })
 public class Client {
 
+	/**
+	 * Id Client, géneré par la BDD. PK dans la base Client.
+	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long idClient;

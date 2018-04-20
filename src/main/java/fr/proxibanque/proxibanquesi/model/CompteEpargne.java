@@ -23,26 +23,29 @@ public class CompteEpargne extends Compte {
 	 * Taux de rémunération (négociable de client à client)
 	 */
 	private double tauxRemun;
+	
+	//constructer
 
 	// *** CONSTRUCTEURS *** 
 	
 	public CompteEpargne() {
 	}
 
-	public CompteEpargne(long numeroCompte, double solde, String dateOuverture, double tauxremun) {
+	public CompteEpargne(long numeroCompte, double solde, String dateOuverture, double tauxRemun) {
 		this.numeroCompte = numeroCompte;
 		this.solde = solde;
 		this.dateOuverture = dateOuverture;
-		this.tauxRemun = tauxremun;
+		this.tauxRemun = tauxRemun;
 	}
 	
 	// *** GETTERS et SETTERS ***
 
-	public double getTauxremun() {
+	//getter et setter
+	public double getTauxRemun() {
 		return tauxRemun;
 	}
 
-	public void setTauxremun(double tauxremun) {
+	public void setTauxRemun(double tauxremun) {
 		this.tauxRemun = tauxremun;
 	}
 

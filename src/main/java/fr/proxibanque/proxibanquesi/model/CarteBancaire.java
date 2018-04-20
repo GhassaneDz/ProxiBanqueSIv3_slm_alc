@@ -15,16 +15,32 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class CarteBancaire {
 
+	/**
+	 * numéro de la carte. sert de PK dans la table carte banquaire et de FK dans la
+	 * base compte courant
+	 */
+
 	@Id
 	private long numeroCarte;
+	/**
+	 * type de la carte (Visa ou Electron)
+	 */
 	private String type;
+
+	/**
+	 * Permet de typer une carte en VISA (données non sauvegarder en base)
+	 */
 	@Transient
 	public static final String VISA = "visa";
+
+	/**
+	 * Permet de typer une carte en VISA (données non sauvegarder en base)
+	 */
 	@Transient
 	public static final String ELECTRON = "electron";
 
 	// *** CONSTRUCTEURS ***
-	
+
 	public CarteBancaire() {
 	}
 
@@ -34,7 +50,7 @@ public class CarteBancaire {
 	}
 
 	// *** GETTERS et SETTERS ***
-	
+
 	public long getNumeroCarte() {
 		return numeroCarte;
 	}
