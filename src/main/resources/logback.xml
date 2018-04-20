@@ -14,7 +14,7 @@
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>logFile.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			daily rollover
+<!-- 			daily rollover -->
 			<fileNamePattern>logFile.%d{yyyy-MM-dd}.log</fileNamePattern>
 
 			<maxHistory>5</maxHistory>
@@ -26,7 +26,8 @@
 	</appender>
 	
 	<!-- On définit le package qui logge et le niveau de log (il écrase le niveau par défaut) -->
-	<!-- <logger name="org.formation.logs.tests.Test1" level="DEBUG" /> -->
+	<logger name="fr.proxibanque.proxibanquesi.dao.ClientDaoImpl" level="DEBUG" />
+	<logger name="fr.proxibanque.proxibanquesi.service.ServiceProxibanqueImpl" level="DEBUG" />
 	<!-- TRACE, DEBUG, INFO, WARN, ERROR, ALL or OFF -->
 
 	<!-- Logger "parent", on active ou non les différents appenders -->

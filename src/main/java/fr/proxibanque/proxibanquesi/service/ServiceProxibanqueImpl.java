@@ -14,6 +14,7 @@ import fr.proxibanque.proxibanquesi.dao.CompteDao;
 import fr.proxibanque.proxibanquesi.dao.CompteDaoImp;
 import fr.proxibanque.proxibanquesi.dao.ConseillerDao;
 import fr.proxibanque.proxibanquesi.dao.ConseillerDaoImp;
+import fr.proxibanque.proxibanquesi.model.CarteBancaire;
 import fr.proxibanque.proxibanquesi.model.Client;
 import fr.proxibanque.proxibanquesi.model.Compte;
 import fr.proxibanque.proxibanquesi.model.CompteCourant;
@@ -185,6 +186,34 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService, 
 		compteDao.modifierCompte(compteCredite);
 		return Response.ok().build();
 	}
+	
+	private CarteBancaire creerCarteBancaire() {
+		long numero = genererNumero();
+		String type = "";
+		CarteBancaire cb=new CarteBancaire(numero,type);
+		return cb;
+	};
+	
+	@Override
+	public Response associerCB(long numeroCompte, String type) {
+		CompteCourant cc = (CompteCourant) compteDao.obtenirCompte(numeroCompte);
+		CarteBancaire cb=cc.getCarte();
+		if(cb.equals(null)) {
+			cb = creerCarteBancaire();
+			if(type.equals("e")) {
+				cb.setType(CarteBancaire.ELECTRON);
+			} else if(type.equals("v")) {
+				cb.setType(CarteBancaire.VISA);
+			}
+			return Response.ok().build();
+		} else {
+			LOGGER.error("le compte n°" +numeroCompte +" a déjà une carte associée");
+			return Response.notModified("compte deja associe à une carte").build();
+		}
+		
+		
+
+	}
 
 	// *** CONSEILLERS ***
 
@@ -235,5 +264,6 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService, 
 	public void setDao(ClientDao clientDao) {
 		this.clientDao = clientDao;
 	}
+
 
 }

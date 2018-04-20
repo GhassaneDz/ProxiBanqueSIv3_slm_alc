@@ -71,5 +71,9 @@ public interface SIService {
 	@PUT
 	@Path("/creditercompte/{numerocompte}/{montant}")
 	Response crediterCompte(@PathParam("numerocompte") long numerocompte, @PathParam("montant") double montant);
+	
+	@PUT
+	@Path("/associerCB/{numerocompte}/{type}")
+	Response associerCB(@PathParam("numerocompte") long numerocompte, @PathParam("type")String type);
 
 }
