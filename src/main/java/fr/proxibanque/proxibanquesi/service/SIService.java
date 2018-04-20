@@ -9,6 +9,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 
+import fr.proxibanque.proxibanquesi.model.Client;
 import fr.proxibanque.proxibanquesi.model.Compte;
 import fr.proxibanque.proxibanquesi.model.CompteCourant;
 
@@ -72,8 +73,22 @@ public interface SIService {
 	@Path("/creditercompte/{numerocompte}/{montant}")
 	Response crediterCompte(@PathParam("numerocompte") long numerocompte, @PathParam("montant") double montant);
 	
+	/**
+	 * Associe une carte banquaire à un compte courant
+	 * @param numerocompte : numero du compte courant à associer
+	 * @param type : "e" si carte electron, "v" si visa
+	 * @return
+	 */
 	@PUT
 	@Path("/associerCB/{numerocompte}/{type}")
 	Response associerCB(@PathParam("numerocompte") long numerocompte, @PathParam("type") String type);
+	
+	/**
+	 * Lance l'audit d'un client
+	 * @return la liste des clients qui ne respectent pas les conditions de l'audit
+	 */
+	@GET
+	@Path("/audit")
+	List<Client> AuditAgence();
 
 }

@@ -216,6 +216,31 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService, 
 		}
 
 	}
+	
+	//****AUDIT****
+	
+	@Override
+	public List<Client> AuditAgence() {
+		// TODO Auto-generated method stub
+		List<Client> listeTousClient=afficherListeClient();
+		List<Client> listeaudit=new ArrayList<>();
+		for (Client client : listeTousClient) {
+			CompteCourant cc = client.getCompteCourant();
+			CompteEpargne ce = client.getCompteEpargne();
+			if (ce==(null)) {
+				ce=new CompteEpargne();
+				ce.setSolde(0.0);
+			}
+			double soldecc = cc.getSolde();
+			double soldece = ce.getSolde();
+				if (soldecc < -5000.0 || soldece < -5000.0) {
+					listeaudit.add(client);
+				}
+		}
+		
+		return listeaudit;
+	}
+
 
 	// *** CONSEILLERS ***
 
@@ -266,5 +291,6 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService, 
 	public void setDao(ClientDao clientDao) {
 		this.clientDao = clientDao;
 	}
+
 
 }
