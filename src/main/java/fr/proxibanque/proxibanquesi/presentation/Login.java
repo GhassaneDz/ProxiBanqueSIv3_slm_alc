@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import fr.proxibanque.proxibanquesi.model.Conseiller;
+import fr.proxibanque.proxibanquesi.service.ConseillerService;
+import fr.proxibanque.proxibanquesi.service.ServiceProxibanqueImpl;
+
 /**
  * Cette Servlet permet de valider l'authentification d'un conseiller
  * ProxiBanqueSI. Une authentification valide permet de créer une session qui
@@ -23,9 +27,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/Login")
 public class Login extends HttpServlet {
 
-	// TODO Identifiants en "dur"
-	private static final String LOGIN = "mdupont";
-	private static final String PASSWORD = "1234";
+	private ConseillerService service = new ServiceProxibanqueImpl();
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -55,12 +57,13 @@ public class Login extends HttpServlet {
 		String loginInput = request.getParameter("login");
 		String passwordInput = request.getParameter("password");
 		PrintWriter out = response.getWriter();
+		
+		Conseiller conseiller = service.obtenirConseillerParAuth(loginInput, passwordInput);
 
-		if (loginInput.equals(LOGIN) && passwordInput.equals(PASSWORD)) {
+		if (conseiller != null) {
 			HttpSession session = request.getSession();
 			session.setMaxInactiveInterval(60 * 60); // 60 minutes
-			// TODO Ceci sera un objet Conseiller dans une prochaine version
-			session.setAttribute("userSession", "Michel Dupont");
+			session.setAttribute("conseillerSession", conseiller);
 			response.sendRedirect(request.getContextPath() + "/accueil.jsp");
 		} else {
 			// TODO Page d'erreur à retourner

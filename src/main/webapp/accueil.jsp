@@ -8,7 +8,7 @@
 <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
-	<p>Bienvenue, ${userSession}.</p>
+	<p>Bienvenue, ${conseillerSession.prenom} ${conseillerSession.nom} (${conseillerSession.login}).</p>
 	<p>
 		Afin d'utiliser les services ProxiBanqueSI, veuillez utiliser
 		l'application <a

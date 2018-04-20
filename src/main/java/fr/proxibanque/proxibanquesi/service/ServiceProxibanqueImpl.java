@@ -12,13 +12,16 @@ import fr.proxibanque.proxibanquesi.dao.ClientDao;
 import fr.proxibanque.proxibanquesi.dao.ClientDaoImp;
 import fr.proxibanque.proxibanquesi.dao.CompteDao;
 import fr.proxibanque.proxibanquesi.dao.CompteDaoImp;
+import fr.proxibanque.proxibanquesi.dao.ConseillerDao;
+import fr.proxibanque.proxibanquesi.dao.ConseillerDaoImp;
 import fr.proxibanque.proxibanquesi.model.Client;
 import fr.proxibanque.proxibanquesi.model.Compte;
 import fr.proxibanque.proxibanquesi.model.CompteCourant;
 import fr.proxibanque.proxibanquesi.model.CompteEpargne;
+import fr.proxibanque.proxibanquesi.model.Conseiller;
 import fr.proxibanque.proxibanquesi.util.UtilitaireLogger;
 
-public class ServiceProxibanqueImpl implements GestionClientService, SIService {
+public class ServiceProxibanqueImpl implements GestionClientService, SIService, ConseillerService {
 
 	/**
 	 * Règle métier : découvert maximal autorisé sur tout type de compte.
@@ -27,13 +30,14 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService {
 
 	ClientDao clientDao = new ClientDaoImp();
 	CompteDao compteDao = new CompteDaoImp();
+	ConseillerDao conseillerDao = new ConseillerDaoImp();
 	Logger LOGGER = UtilitaireLogger.LOGGER;
 
 	// *** CLIENTS ***
 
 	@Override
 	public Response creerClient(Client newclient) {
-		LOGGER.debug("creation dun nouveau client depuis la couche service");
+		LOGGER.debug("creation d'un nouveau client depuis la couche service");
 		CompteCourant cc = creerCompteCourant();
 		newclient.setCompteCourant(cc);
 		clientDao.creerClient(newclient);
@@ -68,6 +72,12 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService {
 
 	// *** COMPTES ***
 
+	/**
+	 * Crée un objet compte courant avec un numéro de compte aléatoire à neuf
+	 * chiffres.
+	 * 
+	 * @return Object CompteCourant
+	 */
 	private CompteCourant creerCompteCourant() {
 		long numero = genererNumero();
 		String dateOuverture = today();
@@ -76,11 +86,21 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService {
 		return compteCourant;
 	}
 
+	/**
+	 * Génère un numéro de compte aléatoire à neuf chiffres.
+	 * 
+	 * @return Numéro aléatoire à neuf chiffres
+	 */
 	private long genererNumero() {
 		long randomNumber = (long) (Math.random() * 1_000_000_000);
 		return randomNumber;
 	}
 
+	/**
+	 * Génère la date du jour sous forme d'une chaîne de caractères.
+	 * 
+	 * @return Date courant au format ISO8601
+	 */
 	private String today() {
 		SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
@@ -124,6 +144,12 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService {
 		return Response.ok().build();
 	}
 
+	/**
+	 * Crée un objet compte épargne avec un numéro de compte aléatoire à neuf
+	 * chiffres.
+	 * 
+	 * @return Object CompteCourant
+	 */
 	private CompteEpargne creerCompteEpargne() {
 		long numero = genererNumero();
 		double tauxrenum = 0.03;
@@ -160,8 +186,52 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService {
 		return Response.ok().build();
 	}
 
+	// *** CONSEILLERS ***
+
+	@Override
+	public void creerConseiller(Conseiller conseiller) {
+		if (conseiller != null) {
+			conseillerDao.creerConseiller(conseiller);
+		}
+	}
+
+	@Override
+	public Conseiller obtenirConseillerParAuth(String login, String password) {
+		Conseiller conseiller = obtenirConseillerParLogin(login);
+		if (conseiller != null && pwdIsCorrect(conseiller, password)) {
+			return conseiller;
+		} else {
+			return null;
+		}
+	}
+
+	// Helpers
+
+	private Conseiller obtenirConseillerParLogin(String login) {
+		return conseillerDao.obtenirConseillerParLogin(login);
+	}
+
+	/**
+	 * @param Conseiller
+	 * @param password
+	 * @return
+	 */
+	private boolean pwdIsCorrect(Conseiller Conseiller, String password) {
+		boolean answer = false;
+		if (Conseiller.getPassword().equals(password)) {
+			answer = true;
+		}
+		return answer;
+	}
+
 	// *** MOCKITO ***
 
+	/**
+	 * Permet d'attribuer une DAO choisie à l'instance de la présente classe. Utile
+	 * pour associer une DAO simulée par Mockito.
+	 * 
+	 * @param clientDao
+	 */
 	public void setDao(ClientDao clientDao) {
 		this.clientDao = clientDao;
 	}

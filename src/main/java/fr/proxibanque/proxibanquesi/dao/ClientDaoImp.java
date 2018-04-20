@@ -116,18 +116,13 @@ public class ClientDaoImp implements ClientDao {
 	public List<Client> obtenirTousLesClients() {
 		UtilitaireLogger.LOGGER.info("Récupération de tous les clients dans la base de données");
 		EntityManager em = JPAUtil.getEntityManager();
-		EntityTransaction txn = em.getTransaction();
 		List<Client> listeClients = new ArrayList<>();
 		try {
 			TypedQuery<Client> tq = em.createQuery("SELECT c FROM Client c", Client.class);
 			listeClients = (ArrayList<Client>) tq.getResultList();
 		} catch (Exception e) {
-			if (txn != null) {
-				em.close();
-				e.printStackTrace();
-				UtilitaireLogger.LOGGER.error("Erreur lors la lecture en base de tous les clients");
-
-			}
+			e.printStackTrace();
+			UtilitaireLogger.LOGGER.error("Erreur lors la lecture en base de tous les clients");
 		} finally {
 			if (em != null) {
 				em.close();

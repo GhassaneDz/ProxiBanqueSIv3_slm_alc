@@ -54,7 +54,7 @@ public class LoginFilter implements Filter {
 		String[] authorizedPages = { request.getContextPath() + "/Login", request.getContextPath() + "/index.html",
 				request.getContextPath() + "/css/style.css", request.getContextPath() + "/img/banner.jpg" };
 
-		boolean loggedIn = session != null && session.getAttribute("userSession") != null;
+		boolean loggedIn = session != null && session.getAttribute("conseillerSession") != null;
 		boolean authorizedRequest = Arrays.asList(authorizedPages).contains(request.getRequestURI());
 
 		if (loggedIn || authorizedRequest) {
