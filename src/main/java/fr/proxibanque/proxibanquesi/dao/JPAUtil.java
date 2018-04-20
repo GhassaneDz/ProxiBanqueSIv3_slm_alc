@@ -16,13 +16,13 @@ import javax.persistence.Persistence;
  */
 public class JPAUtil {
 
-	private static final EntityManagerFactory emf;
+	private static final EntityManagerFactory EMF;
 
 	private JPAUtil() {
 	}
 
 	static {
-		emf = Persistence.createEntityManagerFactory("my-pu");
+		EMF = Persistence.createEntityManagerFactory("my-pu");
 	}
 
 	/**
@@ -32,7 +32,7 @@ public class JPAUtil {
 	 * @return Objet EntityManager
 	 */
 	public static EntityManager getEntityManager() {
-		return emf.createEntityManager();
+		return EMF.createEntityManager();
 	}
 
 }

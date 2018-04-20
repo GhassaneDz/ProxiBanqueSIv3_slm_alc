@@ -21,14 +21,24 @@ import javax.xml.bind.annotation.XmlType;
 @Entity
 @XmlRootElement
 public class CompteCourant extends Compte {
-	
-	//***CARTE***
+
 	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
 	@JoinColumn(name = "numero_carte", unique = true)
 	private CarteBancaire carte;
-	
-	//***GETTER & SETTER 
-	
+
+	// *** CONSTRUCTEURS ***
+
+	public CompteCourant() {
+	}
+
+	public CompteCourant(long numeroCompte, double solde, String dateOuverture) {
+		this.numeroCompte = numeroCompte;
+		this.solde = solde;
+		this.dateOuverture = dateOuverture;
+	}
+
+	// *** GETTERS et SETTERS ***
+
 	public CarteBancaire getCarte() {
 		return carte;
 	}
@@ -36,19 +46,5 @@ public class CompteCourant extends Compte {
 	public void setCarte(CarteBancaire carte) {
 		this.carte = carte;
 	}
-
-	// *** CONSTRUCTEURS ***
-	
-	public CompteCourant() {
-	}
-
-
-	public CompteCourant(long numeroCompte, double solde, String dateOuverture) {
-		this.numeroCompte = numeroCompte;
-		this.solde = solde;
-		this.dateOuverture = dateOuverture;
-	}
-	
-	
 
 }

@@ -63,7 +63,7 @@ public interface SIService {
 	 * Credite un compte. Permet d'encaisser les chèques ou un apport en liquide par
 	 * exemple.
 	 * 
-	 * @param numerocompte
+	 * @param numeroCompte
 	 *            Numéro du compte à créditer
 	 * @param montant
 	 *            Montant à créditer
@@ -71,7 +71,7 @@ public interface SIService {
 	 */
 	@PUT
 	@Path("/creditercompte/{numerocompte}/{montant}")
-	Response crediterCompte(@PathParam("numerocompte") long numerocompte, @PathParam("montant") double montant);
+	Response crediterCompte(@PathParam("numerocompte") long numeroCompte, @PathParam("montant") double montant);
 	
 	/**
 	 * Associe une carte banquaire à un compte courant

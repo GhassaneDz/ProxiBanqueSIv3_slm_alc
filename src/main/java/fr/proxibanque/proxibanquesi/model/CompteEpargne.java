@@ -24,8 +24,9 @@ public class CompteEpargne extends Compte {
 	 */
 	private double tauxRemun;
 
+	// *** CONSTRUCTEURS *** 
+	
 	public CompteEpargne() {
-
 	}
 
 	public CompteEpargne(long numeroCompte, double solde, String dateOuverture, double tauxremun) {
@@ -34,6 +35,8 @@ public class CompteEpargne extends Compte {
 		this.dateOuverture = dateOuverture;
 		this.tauxRemun = tauxremun;
 	}
+	
+	// *** GETTERS et SETTERS ***
 
 	public double getTauxremun() {
 		return tauxRemun;
