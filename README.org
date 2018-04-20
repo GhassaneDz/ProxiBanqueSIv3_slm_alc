@@ -1,0 +1,385 @@
+#+TITLE: ProxiBanqueSI v3
+#+AUTHOR: S. Le Mentec et A. Le Cigne
+#+STARTUP: indent
+
+* Description générale
+
+*ProxiBanqueSI v3* est une application offrant une API basée sur les
+WebServices RESTful. Les différents flux REST (XML) sont destinés à
+être consommés par une application client destinée aux conseillers
+ProxiBanque.
+
+ProxiBanqueSI exploite l'architecture trois tiers :
+
+- Présentation des données sur une application client (tablette,
+  smartphone, framework type Electron pour une application desktop...)
+
+- Logique métier dans une couche de service
+
+- Persistance des données dans une base de données SQL
+  (MySQL). L'application utilise le standard d'ORM JPA pour la
+  communication avec la base de données.
+
+Cette application fournit les fonctionnalités décrites ci-dessous. Se
+référer au diagramme d'utilisation fourni pour une vue générale
+(répertoire =./uml= - cf. section [[*Livrables][livrables]]).
+
+** Authentification
+
+Aucune requête (sauf pages de login) n'est autorisée sans
+authentification (système de filtre). L'application fournit donc un
+système d'authentification permettant de vérifier si le couple
+login/password correspond à un conseiller présent dans la base de
+données. Si oui, l'accès est autorisé pour une session de 60 minutes.
+
+** Gestion clients
+
+1. Création d'un client (nom, prénom, adresse, code postal, ville,
+   téléphone)
+
+2. Accès aux informations d'un client
+
+3. Accès aux informations des clients de l'agence
+
+4. Modification d'un client existant
+
+5. Suppression d'un client et de ses comptes
+
+** Opérations
+
+1. Association automatique d'un compte courant (solde nul) à chaque
+   création client
+
+2. Association ultérieure d'une carte bancaire à ce compte courant
+
+3. Association ultérieure d'un compte épargne à un client
+
+4. Virements bancaires de compte à compte (courant ou épargne)
+
+5. Système d'audit : les comptes dont le solde est strictement
+   inférieur à 5000 € sont automatiquement détectés.
+
+* Livrables
+
+- Le projet Eclipse =ProxiBanquesi_slm_alc=, qui constitue un projet
+  Maven
+
+- Un dossier de documentation Javadoc qui contient la documentation du
+  projet au format HTML
+
+- Présents dans le dossier =./uml=, les exports graphiques :
+
+  + d'un diagramme de classe
+  + d'un diagramme de cas d'utilisation
+  + d'un diagramme de déploiement
+
+- Des mockups d'une application mobile destinée à consommer les flux,
+  réalisés à l'aide du logiciel Balsamiq, dans le répertoire
+  =./mockups=
+
+- Les URLs associées aux différents flux des WebServices, disponibles
+  dans le présent README (section [[*Flux][Flux]]).
+
+* Installation et exécution
+
+** Dépendances
+
+- =Apache Tomcat=
+
+  Utiliser...
+
+  #+BEGIN_EXAMPLE
+  File > New > Other... Server
+  #+END_EXAMPLE
+
+  ...afin d'associer le serveur Apache Tomcat à Eclipse.
+
+- Base de données MySQL (disponible et configurée avec le logiciel
+  XAMPP). Veillez à ce que celle-ci soit disponible sur le
+  port 3306.
+
+- Libraries :
+
+  Se référer au fichier =pom.xml= situé à la racine du projet pour
+  visualiser les dépendances en terme de librairies. Celles-ci sont
+  gérées automatiquement par Maven. Les grandes catégories sont :
+
+  + JAVA API Servlet v3
+
+  + MySQL Connecter
+
+  + JPA
+
+  + Apache CXF
+
+  + SLF4J/LogBack
+
+  + Mockito
+
+** Procédure
+
+Importer le projet sous Eclipse puis Alt-F5 sur le projet afin de
+télécharger les dépendances Maven. En cas de difficultés :
+
+#+BEGIN_SRC sh
+  mvn clean install
+#+END_SRC
+
+...dans une console.
+
+*Important* : un conseiller doit être présent dans la base de données
+ProxiBanqueSI pour que l'authentification fonctionne. Pour cela, deux
+solutions sont mises à disposition :
+
+- Un script SQL disponible ici dans le dossier des livrables :
+  =./sql/proxibanquesislmalc.sql=, qui va créer une base de données
+  comprenant un conseiller.
+
+- Dans Eclipse, exécuter la classe
+  =fr.proxibanque.proxibanquesi.tests.TestsConseiller= qui va
+  automatiquement créer la base de données ainsi qu'un conseiller.
+
+L'application peut être lancée via Tomcat par la procédure suivante :
+
+#+BEGIN_EXAMPLE
+  Clic droit sur le fichier webapp/index.html > Run As... > Run on server
+#+END_EXAMPLE
+
+*Authentification* : =jdupont=, =1234=
+
+Pour l'explotation des services REST, utiliser une extension de type
+[[https://addons.mozilla.org/en-US/firefox/addon/rester/][RESTer]] pour Firefox. Celle-ci doit pouvoir utiliser la session HTTP
+ouverte précédemment dans le navigateur.
+
+* Flux
+
+- URL de base : http://localhost:8080/ProxiBanquesi_slm_alc/services/
+- URL de gestion : [base]/gestionclient/
+- URL opérations : [base]/service/
+
+** Ajout client
+
+- URL : http://localhost:8080/ProxiBanquesi_slm_alc/services/gestionclient/client/
+- Méthode : POST
+- Flux out : XML Client à placer dans le body de la requête
+
+#+BEGIN_SRC xml
+  <client>
+    <nom>Martin</nom>
+    <prenom>Michel</prenom>
+    <adresse>1 rue de la Source</adresse>
+    <codePostal>75001</codePostal>
+    <ville>Paris</ville>
+    <telephone>0100000001</telephone>
+  </client>
+#+END_SRC
+
+- Réponse : 200
+- Flux in : aucun
+
+** Afficher un client
+
+- URL : http://localhost:8080/ProxiBanquesi_slm_alc/services/gestionclient/client/{idClient}
+- Méthode : GET
+- Flux out : aucun
+- Réponse : 200
+- Flux in : XML correspondant à l'objet client
+
+#+BEGIN_SRC xml
+  <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+  <client>
+    <idClient>1</idClient>
+    <nom>Martin</nom>
+    <prenom>Michel</prenom>
+    <adresse>1 rue de la Source</adresse>
+    <codePostal>75001</codePostal>
+    <ville>Paris</ville>
+    <telephone>0100000001</telephone>
+    <compteCourant>
+      <dateOuverture>2018-04-20</dateOuverture>
+      <numeroCompte>869326182</numeroCompte>
+      <solde>0.0</solde>
+    </compteCourant>
+  </client>
+#+END_SRC
+
+** Modifier un client
+
+- URL : http://localhost:8080/ProxiBanquesi_slm_alc/services/gestionclient/client/
+- Méthode : PUT
+- Flux out : XML du nouveau client à placer dans le body de la requete
+
+#+BEGIN_SRC xml
+  <client>
+    <idClient>1</idClient>
+    <nom>Martin</nom>
+    <prenom>Michel</prenom>
+    <adresse>2 rue de la Source</adresse>
+    <codePostal>75001</codePostal>
+    <ville>Paris</ville>
+    <telephone>0100000001</telephone>
+    <compteCourant>
+      <dateOuverture>2018-04-20</dateOuverture>
+      <numeroCompte>869326182</numeroCompte>
+      <solde>0.0</solde>
+    </compteCourant>
+  </client>
+#+END_SRC
+
+- Réponse : 200
+
+** Supprimer un client
+
+- URL : http://localhost:8080/ProxiBanquesi_slm_alc/services/gestionclient/client/{idClient}
+- Méthode : DELETE
+- Flux out : aucun
+- Réponse : 200
+- Flux in : aucun
+
+** Afficher la liste des clients
+
+- URL : http://localhost:8080/ProxiBanquesi_slm_alc/services/gestionclient/client/all
+- Méthode : GET
+- Flux out : aucun
+- Réponse : 200
+- Flux in : liste de tous les clients
+ 
+#+BEGIN_SRC xml
+  <?xml version="1.0" encoding="UTF-8"?>
+  <clients>
+    <client>
+      <idClient>1</idClient>
+      <nom>Martin</nom>
+      <prenom>Michel</prenom>
+      <adresse>1 rue de la Source</adresse>
+      <codePostal>75001</codePostal>
+      <ville>Paris</ville>
+      <telephone>0100000001</telephone>
+      <compteCourant>
+        <dateOuverture>2018-04-20</dateOuverture>
+        <numeroCompte>869326182</numeroCompte>
+        <solde>0.0</solde>
+      </compteCourant>
+    </client>
+    <client>
+      <idClient>2</idClient>
+      <nom>Martin</nom>
+      <prenom>Michel</prenom>
+      <adresse>20 quai Leray</adresse>
+      <codePostal>44210</codePostal>
+      <ville>Pornic</ville>
+      <telephone>0240000000</telephone>
+      <compteCourant>
+        <dateOuverture>2018-04-20</dateOuverture>
+        <numeroCompte>763356290</numeroCompte>
+        <solde>0.0</solde>
+      </compteCourant>
+    </client>
+  </clients>
+#+END_SRC
+
+** Associer un compte épargne
+
+- URL : http://localhost:8080/ProxiBanquesi_slm_alc/services/service/associercompteepargne/{idClient}
+- Méthode : POST
+- Flux out : aucun
+- Réponse : 200 si réussite
+- Flux in : aucun
+
+** Virement compte à compte
+
+- URL :  http://localhost:8080/ProxiBanquesi_slm_alc/services/service/virement/{numSrc}/{numDest}/{montant}
+- Méthode : POST
+- Flux out : aucun
+- Réponse : 200
+- Flux : in
+
+** Lister comptes client
+
+- URL : http://localhost:8080/ProxiBanquesi_slm_alc/services/service/listercompte/{idClient}
+- Méthode : GET
+- Flux in : aucun
+- Réponse : 200
+- Flux out : XML correspondant à la liste des comptes du client
+
+#+BEGIN_SRC xml
+  <?xml version="1.0" encoding="UTF-8"?>
+  <comptes>
+    <compte>
+      <dateOuverture>2018-04-20</dateOuverture>
+      <numeroCompte>869326182</numeroCompte>
+      <solde>0.0</solde>
+    </compte>
+  </comptes>
+#+END_SRC
+
+** Créditer un compte
+
+- URL : http://localhost:8080/ProxiBanquesi_slm_alc/services/service/creditercompte/{numerocompte}/{montant}
+- Méthode : PUT
+- Flux out : aucun
+- Réponse : 200
+- Flux in : aucun
+
+** Associer carte à compte courant
+
+- URL : http://localhost:8080/ProxiBanquesi_slm_alc/services/service/associercb/{numerocompte}/{type}
+- Méthode : PUT
+- Flux out : aucun
+- Réponse : 200 (succès), 304 (carte déjà créée)
+- Flux in : aucun
+
+** Audit agence
+
+- URL : http://localhost:8080/ProxiBanquesi_slm_alc/services/service/audit
+- Méthode : GET
+- Flux out : aucun
+- Réponse : 200
+- Flux in : XML contenant la liste des clients qui ne respectent pas l'audit
+
+#+BEGIN_SRC xml
+  <?xml version="1.0" encoding="UTF-8"?>
+  <clients>
+    <client>
+      <idClient>8</idClient>
+      <nom>Martin</nom>
+      <prenom>Michel</prenom>
+      <adresse>1 rue de la Source</adresse>
+      <codePostal>75001</codePostal>
+      <ville>Paris</ville>
+      <telephone>0100000001</telephone>
+      <compteCourant>
+        <dateOuverture>2018-04-20</dateOuverture>
+        <numeroCompte>325560111</numeroCompte>
+        <solde>-6000.0</solde>
+        <carte>
+          <numeroCarte>440220672</numeroCarte>
+          <type>visa</type>
+        </carte>
+      </compteCourant>
+    </client>
+  </clients>
+#+END_SRC
+
+* Liens
+
+Un dépôt Github est disponible à l'adresse suivante :
+
+https://github.com/alecigne/ProxiBanqueSIv3_slm_alc
+
+Cette documentation y est disponible au format =.org= (README lu
+nativement par Github).
+
+* Limitation et bugs
+
+/!\ Cette version est hautement expérimentale et de nombreux bugs
+restent à corriger /!\
+
+- Généralement : peu de payload dans les requêtes (serait utile pour
+  des affichages de bilans d'opérations par exemple)
+- Pas de possibilité de lister des clients par conseiller/pas de
+  limite à 10 clients par conseiller. Un conseiller est cependant
+  présent en base et cet ajout de fonctionnalité est possible.
+- Pas de gestion de patrimoine
+- Pas de comptes entreprise
+- etc.
