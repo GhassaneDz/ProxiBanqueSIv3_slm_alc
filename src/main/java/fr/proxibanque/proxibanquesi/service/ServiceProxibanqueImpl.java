@@ -32,7 +32,14 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService, 
 	private ClientDao clientDao = new ClientDaoImp();
 	private CompteDao compteDao = new CompteDaoImp();
 	private ConseillerDao conseillerDao = new ConseillerDaoImp();
+	/**
+	 * utilitaire pour logger les utilisations de services
+	 */
 	private Logger logger = UtilitaireLogger.LOGGER;
+	/**
+	 * regle métier : définition du seuil de l'audit
+	 */
+	private static double seuilAudit =-5000; 
 
 	// *** CLIENTS ***
 
@@ -187,6 +194,9 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService, 
 		return Response.ok().build();
 	}
 
+	/**Génération d'un CB sans type avec un numéro aléatoire à 9 chiffres
+	 * @return CB : un objet carte bancaire
+	 */
 	private CarteBancaire creerCarteBancaire() {
 		long numero = genererNumero();
 		String type = "";
@@ -233,7 +243,7 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService, 
 			}
 			double soldecc = cc.getSolde();
 			double soldece = ce.getSolde();
-				if (soldecc < -5000.0 || soldece < -5000.0) {
+				if (soldecc < seuilAudit || soldece < seuilAudit) {
 					listeaudit.add(client);
 				}
 		}
@@ -268,9 +278,9 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService, 
 	}
 
 	/**
-	 * @param Conseiller
-	 * @param password
-	 * @return
+	 * @param Conseiller qui se connecte 
+	 * @param password du conseiller
+	 * @return true si identification conseiller ok, false si identification non ok
 	 */
 	private boolean pwdIsCorrect(Conseiller Conseiller, String password) {
 		boolean answer = false;
@@ -286,7 +296,7 @@ public class ServiceProxibanqueImpl implements GestionClientService, SIService, 
 	 * Permet d'attribuer une DAO choisie à l'instance de la présente classe. Utile
 	 * pour associer une DAO simulée par Mockito.
 	 * 
-	 * @param clientDao
+	 * @param clientDao dao client associé au service (mockée ou non)
 	 */
 	public void setDao(ClientDao clientDao) {
 		this.clientDao = clientDao;

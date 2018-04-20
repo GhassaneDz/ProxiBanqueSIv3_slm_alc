@@ -15,7 +15,7 @@ public interface ConseillerDao {
 	/**
 	 * Crée un conseiller ProxiBanque.
 	 * 
-	 * @param conseiller
+	 * @param conseiller : conseiller à integrer dans la base de données
 	 */
 	// Utilisable par un futur gérant, utile ici pour des tests.
 	void creerConseiller(Conseiller conseiller);
