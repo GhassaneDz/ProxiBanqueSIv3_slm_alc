@@ -92,11 +92,12 @@ données. Si oui, l'accès est autorisé pour une session de 60 minutes.
   File > New > Other... Server
   #+END_EXAMPLE
 
-  ...afin d'associer le serveur Apache Tomcat à Eclipse.
+  ...afin d'associer le serveur Apache Tomcat à Eclipse. Attention,
+  *le serveur Tomcat devra utiliser le port 8080* !
 
 - Base de données MySQL (disponible et configurée avec le logiciel
-  XAMPP). Veillez à ce que celle-ci soit disponible sur le
-  port 3306.
+  XAMPP). Veillez à ce que celle-ci *soit disponible sur le port
+  3306*.
 
 - Libraries :
 
